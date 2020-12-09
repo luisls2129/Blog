@@ -7,6 +7,7 @@
     </head>
     <body>
         @include('partials.nav')
+        {{fechaActual("d/m/Y")}}
         @yield('contenido')
     </body>
 </html>
