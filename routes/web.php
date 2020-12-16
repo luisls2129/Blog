@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('inicio');
+    return view('posts.index');
 })->name('inicio');
 
 //POngo el namespace entero ya que sino dará error porque no encuentra el Controller
