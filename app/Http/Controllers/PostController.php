@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Posts;
 
 class PostController extends Controller
 {
@@ -13,7 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        $posts = Posts::orderBy('titulo')->get();
+        //->paginate(5);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -23,7 +26,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        return redirect()->route('inicio');
+        /*return redirect()->route('inicio');*/
+        $post = new Posts();
+        $post->titulo = "Titulo" . rand();
+        $post->contenido = "Contenido" . rand();
+        $post->save();
+        return view('posts.index');
+        //Posts::create($post->all());
     }
 
     /**
@@ -45,7 +54,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('posts.show', compact('id'));
+
+        $post = Posts::findOrFail($id);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -79,6 +90,28 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Posts::findOrFail($id)->delete();
+        $posts = Posts::get();
+        return view('posts.index', compact('posts'));
+    }
+
+    public function nuevoPrueba()
+    {
+        $post = new Posts();
+        $post->titulo = "Titulo" . rand();
+        $post->contenido = "Contenido" . rand();
+        $post->save();
+
+        $posts = Posts::get();
+        return view('posts.index', compact('posts'));
+    }
+
+    public function editarPrueba($id){
+
+        $postModificar = Posts::findOrFail($id);
+        $postModificar->titulo = "Titulo" . rand();
+        $postModificar->contenido = "Contenido" . rand();
+        $postModificar->save();
+        return self::index();
     }
 }

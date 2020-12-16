@@ -3,5 +3,18 @@
 @section('titulo', 'Listado de posts')
 
 @section('contenido')
-    <h1>Listado de posts</h1>
+
+@forelse ($posts as $post)
+<p>
+    {{$post["titulo"]}}
+</p>
+
+<button> <a href="{{route('posts.show', $post)}}">
+    {{ $post["titulo"] }}
+   </a>
+</button>
+@empty
+
+@endforelse
+
 @endsection
