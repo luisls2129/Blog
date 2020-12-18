@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Posts::orderBy('titulo')->get();
-        //->paginate(5);
+        $posts = Posts::orderBy('titulo')
+        ->paginate(5);
         return view('posts.index', compact('posts'));
     }
 
@@ -91,8 +91,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         Posts::findOrFail($id)->delete();
-        $posts = Posts::get();
-        return view('posts.index', compact('posts'));
+        return redirect()->route('posts.index');
     }
 
     public function nuevoPrueba()
@@ -102,8 +101,7 @@ class PostController extends Controller
         $post->contenido = "Contenido" . rand();
         $post->save();
 
-        $posts = Posts::get();
-        return view('posts.index', compact('posts'));
+        return redirect()->route('posts.index');
     }
 
     public function editarPrueba($id){

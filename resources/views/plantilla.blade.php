@@ -5,7 +5,7 @@
         @yield('titulo')
         </title>
     </head>
-    <body>
+    <body class="container">
         @include('partials.nav')
         {{fechaActual("d/m/Y")}}
         @yield('contenido')
