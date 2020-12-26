@@ -67,7 +67,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return redirect()->route('inicio');
+        $postModificar = Posts::findOrFail($id);
+        $postModificar->titulo = "Titulo" . rand();
+        $postModificar->contenido = "Contenido" . rand();
+        $postModificar->save();
+        //return self::index();
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -99,6 +104,7 @@ class PostController extends Controller
         $post = new Posts();
         $post->titulo = "Titulo" . rand();
         $post->contenido = "Contenido" . rand();
+        $post->usuario_id = rand(1,2);
         $post->save();
 
         return redirect()->route('posts.index');
