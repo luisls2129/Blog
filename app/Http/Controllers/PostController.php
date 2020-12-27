@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Posts;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\VarDumper;
 
 class PostController extends Controller
 {
@@ -54,9 +56,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-
         $post = Posts::findOrFail($id);
-        return view('posts.show', compact('post'));
+
+        $usuario = DB::table('usuarios')->where('id', $post->usuario_id)->first();
+        $comentarios = DB::table('comentarios')->where('post_id', $id)->get();
+
+        return view('posts.show', compact('post', 'usuario', 'comentarios'));
     }
 
     /**
