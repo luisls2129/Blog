@@ -13,14 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('inicio');
 })->name('inicio');
-
+Route::resource('posts', 'App\Http\Controllers\PostController');
+/*
 Route::get('/posts/editarPrueba/{id}', 'App\Http\Controllers\PostController@editarPrueba');
-Route::get('/posts/nuevoPrueba', 'App\Http\Controllers\PostController@nuevoPrueba');
+Route::get('/posts/nuevoPrueba', 'App\Http\Controllers\PostController@nuevoPrueba');*/
 
 //Pongo el namespace entero ya que sino dará error porque no encuentra el Controller
 
-Route::resource('posts', 'App\Http\Controllers\PostController');
+
 
