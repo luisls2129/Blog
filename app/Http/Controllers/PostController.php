@@ -18,10 +18,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware(
+            'auth',
+            ['except' => ['index', 'show']]
+        );
+    }
+
     public function index()
     {
         $posts = Posts::orderBy('titulo')
-        ->paginate(5);
+            ->paginate(5);
         return view('posts.index', compact('posts'));
     }
 
@@ -129,13 +138,14 @@ class PostController extends Controller
         $post = new Posts();
         $post->titulo = "Titulo" . rand();
         $post->contenido = "Contenido" . rand();
-        $post->usuario_id = rand(1,2);
+        $post->usuario_id = rand(1, 2);
         $post->save();
 
         return redirect()->route('posts.index');
     }
 
-    public function editarPrueba($id){
+    public function editarPrueba($id)
+    {
 
         $postModificar = Posts::findOrFail($id);
         $postModificar->titulo = "Titulo" . rand();

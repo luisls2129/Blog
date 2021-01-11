@@ -22,9 +22,11 @@ class UsuarioFactory extends Factory
      */
     public function definition()
     {
+
+        $word = $this->faker->unique()->word;
         return [
-            'login' => $this->faker->unique()->word,
-            'password' => $this->faker->word
+            'login' => $word,
+            'password' => bcrypt($word)
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('inicio');
 })->name('inicio');
+
+Route::get('login', [LoginController::class, 'loginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::resource('posts', 'App\Http\Controllers\PostController');
 /*
 Route::get('/posts/editarPrueba/{id}', 'App\Http\Controllers\PostController@editarPrueba');

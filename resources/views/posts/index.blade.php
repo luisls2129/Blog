@@ -17,17 +17,22 @@
             Ver
 
         </a>
+        @if (auth()->check())
         <form action="{{ route('posts.destroy', $post) }}" method="POST">
             @method('DELETE')
             @csrf
             <button>Borrar</button>
         </form>
+        @endif
+        @if (auth()->check())
+        @if (auth()->user()->login == $post->usuario->login)
         <a class="text-decoration-none btn btn-light ml-5 text-primary font-weight-bold r-0" href="{{route('posts.edit', $post)}}">
 
             Editar
 
         </a>
-
+        @endif
+        @endif
 </div>
 
 @empty
