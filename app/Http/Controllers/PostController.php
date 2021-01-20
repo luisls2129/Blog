@@ -21,8 +21,11 @@ class PostController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:admin'],
-                ['except' => ['show', 'index']]);
+        $this->middleware(['auth'],
+            ['except' => ['show', 'index','edit']]);
+
+        $this->middleware(['roles:admin'],
+            ['only' => ['edit', 'destroy']]);
     }
 
     public function index()

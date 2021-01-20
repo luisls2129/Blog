@@ -25,7 +25,7 @@
         </form>
         @endif
         @if (auth()->check())
-        @if (auth()->user()->rol == "admin")
+        @if (auth()->user()->rol === "admin" || auth()->user()->login === $post->usuario->login)
         <a class="text-decoration-none btn btn-light ml-5 text-primary font-weight-bold r-0" href="{{route('posts.edit', $post)}}">
 
             Editar

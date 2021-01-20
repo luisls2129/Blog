@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Posts;
 use Closure;
 use Illuminate\Http\Request;
+use Mockery\Undefined;
 
 class RolCheck
 {
@@ -17,10 +18,15 @@ class RolCheck
      */
     public function handle(Request $request, Closure $next, $rol)
     {
-        var_dump($request);
-        if (auth()->user()->rol === $rol || auth()->user()->login === $post->login)
+
+        $post_id = $request->route()->parameters()['post'];
+        $post = Posts::findOrFail($post_id);
+
+        //dd($post_id);
+
+        if (auth()->check() && (auth()->user()->rol === $rol || auth()->user()->id === $post->usuario_id))
             return $next($request);
         else
-            return redirect()->route('inicio');
+            return redirect()->route('login');
     }
 }
