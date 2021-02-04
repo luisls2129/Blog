@@ -8,7 +8,7 @@
 <h1>Modificar Post</h1>
 
 
-<form action="{{route('posts.update', $post->id) }}" method="POST">
+<form action="{{route('posts.update', $post->id) }}" method="GET">
 
     @csrf
     @method('PUT')
